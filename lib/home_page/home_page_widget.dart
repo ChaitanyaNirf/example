@@ -26,7 +26,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             color: Color(0xFF42BEA5),
           ),
           child: FutureBuilder<dynamic>(
-            future: abcCall(),
+            future: testCall(),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -40,15 +40,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 );
               }
-              final listViewAbcResponse = snapshot.data;
+              final listViewTestResponse = snapshot.data;
               return Builder(
                 builder: (context) {
                   final names =
-                      (getJsonField(listViewAbcResponse, r'$.departments')
-                                  ?.toList() ??
-                              [])
-                          .take(10)
-                          .toList();
+                      getJsonField(listViewTestResponse, r'$')?.toList() ?? [];
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -62,7 +58,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           color: Color(0xFFEEEEEE),
                         ),
                         child: Text(
-                          getJsonField(namesItem, r'$.displayName').toString(),
+                          getJsonField(namesItem, r'$.short_tag').toString(),
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                           ),
