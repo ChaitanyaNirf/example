@@ -1,4 +1,4 @@
-import '../backend/backend.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +25,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           decoration: BoxDecoration(
             color: Color(0xFF42BEA5),
           ),
-          child: StreamBuilder<List<ExampleRecord>>(
-            stream: queryExampleRecord(),
+          child: FutureBuilder<dynamic>(
+            future: testCall(),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
               if (!snapshot.hasData) {
@@ -40,37 +40,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 );
               }
-              List<ExampleRecord> listViewExampleRecordList = snapshot.data;
-              // Customize what your widget looks like with no query results.
-              if (snapshot.data.isEmpty) {
-                return Container(
-                  height: 100,
-                  child: Center(
-                    child: Text('No results.'),
-                  ),
-                );
-              }
-              return ListView.builder(
+              final listViewTestResponse = snapshot.data;
+              return ListView(
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
-                itemCount: listViewExampleRecordList.length,
-                itemBuilder: (context, listViewIndex) {
-                  final listViewExampleRecord =
-                      listViewExampleRecordList[listViewIndex];
-                  return Container(
+                children: [
+                  Container(
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
                     ),
                     child: Text(
-                      listViewExampleRecord.name,
+                      getJsonField(listViewTestResponse, r'$.[:].short_tag')
+                          .toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
                       ),
                     ),
-                  );
-                },
+                  )
+                ],
               );
             },
           ),
