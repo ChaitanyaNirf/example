@@ -52,7 +52,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       color: Color(0xFFEEEEEE),
                     ),
                     child: Text(
-                      getJsonField(listViewTestResponse, r'$.[:].short_tag')
+                      getJsonField(listViewTestResponse, r'$.short_tag')
                           .toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
