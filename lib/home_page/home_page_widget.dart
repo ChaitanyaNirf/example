@@ -16,32 +16,32 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0xFF42BEA5),
-          ),
-          child: FutureBuilder<dynamic>(
-            future: abcCall(),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.primaryColor,
-                    ),
-                  ),
-                );
-              }
-              final listViewAbcResponse = snapshot.data;
-              return ListView(
+    return FutureBuilder<dynamic>(
+      future: abcCall(),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                color: FlutterFlowTheme.primaryColor,
+              ),
+            ),
+          );
+        }
+        final homePageAbcResponse = snapshot.data;
+        return Scaffold(
+          key: scaffoldKey,
+          body: SafeArea(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFF42BEA5),
+              ),
+              child: ListView(
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
                 children: [
@@ -52,7 +52,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       color: Color(0xFFEEEEEE),
                     ),
                     child: Text(
-                      getJsonField(listViewAbcResponse, r'$.displayName')
+                      getJsonField(homePageAbcResponse, r'$.displayName')
                           .toString(),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
@@ -60,11 +60,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   )
                 ],
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
