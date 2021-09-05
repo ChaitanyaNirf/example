@@ -44,7 +44,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               return Builder(
                 builder: (context) {
                   final names =
-                      getJsonField(listViewTestResponse, r'$')?.toList() ?? [];
+                      getJsonField(listViewTestResponse, r'''$''')?.toList() ??
+                          [];
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -58,7 +59,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           color: Color(0xFFEEEEEE),
                         ),
                         child: Text(
-                          getJsonField(namesItem, r'$.short_tag').toString(),
+                          getJsonField(namesItem, r'''$.short_tag''')
+                              .toString(),
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Poppins',
                           ),
